@@ -27,22 +27,16 @@ import sys
 # Output is writing to the standard output
 
 # For each new line in the standard input (stdin) 
+
+
 for line in sys.stdin:
     data = line.strip().split("\t")
     if len(data) != 6:
         raise ValueError("Invalid input: Tuple does not have six elements")
     date, time, item, category, sales, payment = data
-    sys.stdout.write("{0}\t{1}\n".format(category, sales))
-
-
-
-
-
-
-
-
-
-
+    
+    if category in ['Computers', 'Cameras', 'Video Games']:
+        sys.stdout.write("{0}\t{1}\n".format(category, sales))
 
 
 
