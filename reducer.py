@@ -20,7 +20,7 @@ import sys
 # Cash  455.51
 
 # Sum of all sales (values) is initialized with zero, we just started
-sum_of_values = 0
+count = 0
 
 # Previous key is initialized with None, we just started
 previous_key = None
@@ -34,7 +34,7 @@ for line in sys.stdin:
     data = line.strip().split("\t")
 
     # Store the 2 elements of this line in seperate variables
-    key, value = data
+    key = data[0]
 
     # Do we have a previous_key (previous_key != None) and 
     # is the new key different than the previous key?
@@ -45,17 +45,16 @@ for line in sys.stdin:
         # to the standart output (stdout)
         # Key and value are seperated by a tab (\t)
         # Line ends with new line (\n)
-        sys.stdout.write("{0}\t{1}\n".format(previous_key, sum_of_values))
-        # Sum of sales starts again with 0
-        sum_of_values = 0
+        sys.stdout.write("{0}\t{1}\n".format(previous_key, count))
+        # Reset 0
+        count = 0
 
-    # Add the value to the total sales
-    # a += b is the same as a = a + b
-    # the float function transforms the value
-    # to a float data type (like decimal)
-    sum_of_values += float(value)
-    # the previous key for the next iteration is the current key of the this iteration 
+    # Increment the count for each line
+    count += 1
+    # Set the previous key for the next iteration
+    
     previous_key = key
 
-# write the last result to stdout
-sys.stdout.write("{0}\t{1}\n".format(previous_key, sum_of_values))
+# write the last result the last key
+if previous_key is not None:
+    sys.stdout.write("{0}\t{1}\n".format(previous_key, count))
