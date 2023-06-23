@@ -23,24 +23,46 @@ import sys
 
 
 
-count_threshold = 114
+
+
+
 previous_key = None
+total_sales = 0
 count = 0
 
 for line in sys.stdin:
     data = line.strip().split("\t")
     key = data[0]
+    value = float(data[1])
 
     if previous_key is not None and previous_key != key:
-        if count > count_threshold:
-            sys.stdout.write("{0}\n".format(previous_key))
+        average_sales = total_sales / count
+        sys.stdout.write("{0}\t{1}\n".format(previous_key, average_sales))
+        total_sales = 0
         count = 0
 
+    total_sales += value
     count += 1
     previous_key = key
 
-if previous_key is not None and count > count_threshold:
-    sys.stdout.write("{0}\n".format(previous_key))
+if previous_key is not None:
+    average_sales = total_sales / count
+    sys.stdout.write("{0}\t{1}\n".format(previous_key, average_sales))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
